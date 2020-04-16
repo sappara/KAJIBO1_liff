@@ -84,7 +84,7 @@ function registerButtonHandlers() {
           .sendMessages([
             {
               type: "text",
-              text: "完了",
+              text: "cmd_完了",
             },
           ])
           .then(function () {
