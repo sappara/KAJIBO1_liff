@@ -5,6 +5,30 @@ const app = express();
 const port = process.env.PORT || 5000;
 const myLiffId = process.env.MY_LIFF_ID;
 
+const pg = require("pg");
+
+app.get("/", function (req, res, next) {
+  let pool = pg.pool({
+    database: process.env.ENV_DB,
+    user: process.env.ENB_USER,
+    password: process.env.ENV_PASSWORD,
+    host: process.env.ENV_HOST,
+    port: 5432,
+  });
+  pool.connect(function (err, client) {
+    if (err) {
+      console.log(err);
+    } else {
+      client.query("SELECT roomid FROM rooms", function (err, result) {
+        res.render("index", {
+          datas: result.rows[0].name,
+        });
+        console.log(result);
+      });
+    }
+  });
+});
+
 // const { Pool } = require("pg");
 // const pool = new Pool({
 //   connectionString: process.env.DATABASE_URL,
@@ -28,11 +52,19 @@ const myLiffId = process.env.MY_LIFF_ID;
 //   client.end();
 // });
 
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.use(express.static("public"));
 
 app.get("/send-id", function (req, res) {
   res.json({ id: myLiffId });
 });
+// app.get("/", (req, res) => {
+//     //   res.send("Welcome to Confetti Cuisine!");
+//     res.render("index");
+//   });
 
 // app.get("/db", async (req, res) => {
 //   try {
