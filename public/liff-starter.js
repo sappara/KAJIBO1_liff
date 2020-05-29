@@ -17,6 +17,7 @@ window.onload = function () {
       .then(function (jsonResponse) {
         myLiffId = jsonResponse.id;
         initializeLiffOrDie(myLiffId);
+        getUserid();
       })
       .catch(function (error) {
         document.getElementById("liffAppContent").classList.add("hidden");
@@ -27,6 +28,7 @@ window.onload = function () {
   } else {
     myLiffId = defaultLiffId;
     initializeLiffOrDie(myLiffId);
+    getUserid();
   }
 };
 
@@ -120,4 +122,16 @@ function sendAlertIfNotInClient() {
   alert(
     "This button is unavailable as LIFF is currently being opened in an external browser."
   );
+}
+
+function getUserid() {
+  liff
+    .getProfile()
+    .then(function (profile) {
+      document.getElementById("userIdProfileField").textContent =
+        profile.userId;
+    })
+    .catch(function (error) {
+      window.alert("Error getting profile: " + error);
+    });
 }
