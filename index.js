@@ -21,6 +21,7 @@ app.get("/", function (req, res, next) {
       client.query("SELECT roomid FROM rooms", function (err, result) {
         res.render("index", {
           datas: result.rows[0].name,
+          id: myLiffId,
         });
         console.log(result);
       });
