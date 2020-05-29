@@ -1,3 +1,5 @@
+"use strict";
+
 window.onload = function () {
   const useNodeJS = true; // if you are not using a node server, set this value to false
   const defaultLiffId = ""; // change the default LIFF value if you are not using a node server
@@ -94,6 +96,20 @@ function registerButtonHandlers() {
             window.alert("Error sending message: " + error);
           });
       }
+    });
+  // get profile call
+  document
+    .getElementById("getProfileButton")
+    .addEventListener("click", function () {
+      liff
+        .getProfile()
+        .then(function (profile) {
+          document.getElementById("userIdProfileField").textContent =
+            profile.userId;
+        })
+        .catch(function (error) {
+          window.alert("Error getting profile: " + error);
+        });
     });
 }
 
