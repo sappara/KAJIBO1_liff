@@ -6,6 +6,27 @@ const port = process.env.PORT || 5000;
 const myLiffId = process.env.MY_LIFF_ID;
 
 const { Pool } = require("pg");
+app.get("/", function (req, res, next) {
+  const pool = new Pool({
+    database: process.env.ENV_DB,
+    user: process.env.ENB_USER,
+    password: process.env.ENV_PASSWORD,
+    host: process.env.ENV_HOST,
+    port: 5432,
+  });
+  pool.connect(function (err, client) {
+    if (err) {
+      console.log(err);
+    } else {
+      client.query("SELECT roomid FROM rooms", function (err, result) {
+        res.render("index", {
+          datas: result.rows[0].name,
+        });
+        console.log(result);
+      });
+    }
+  });
+});
 
 // const { Pool } = require("pg");
 // const pool = new Pool({
@@ -56,26 +77,5 @@ app.get("/send-id", function (req, res) {
 //     res.send("Error" + err);
 //   }
 // });
-app.get("/", function (req, res, next) {
-  const pool = new Pool({
-    database: process.env.ENV_DB,
-    user: process.env.ENB_USER,
-    password: process.env.ENV_PASSWORD,
-    host: process.env.ENV_HOST,
-    port: 5432,
-  });
-  pool.connect(function (err, client) {
-    if (err) {
-      console.log(err);
-    } else {
-      client.query("SELECT roomid FROM rooms", function (err, result) {
-        res.render("index", {
-          datas: result.rows[0].name,
-        });
-        console.log(result);
-      });
-    }
-  });
-});
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));
