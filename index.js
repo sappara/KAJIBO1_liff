@@ -5,10 +5,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 const myLiffId = process.env.MY_LIFF_ID;
 
-const pg = require("pg");
+const { Pool } = require("pg");
 
 app.get("/", function (req, res, next) {
-  let pool = pg.pool({
+  const pool = new Pool({
     database: process.env.ENV_DB,
     user: process.env.ENB_USER,
     password: process.env.ENV_PASSWORD,
