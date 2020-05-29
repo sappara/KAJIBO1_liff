@@ -27,7 +27,6 @@ window.onload = function () {
   } else {
     myLiffId = defaultLiffId;
     initializeLiffOrDie(myLiffId);
-    getUserid();
   }
 };
 
@@ -70,6 +69,7 @@ function initializeLiff(myLiffId) {
  */
 function initializeApp() {
   registerButtonHandlers();
+  getUserid();
 }
 
 /**
