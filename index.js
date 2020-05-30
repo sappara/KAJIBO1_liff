@@ -18,16 +18,20 @@ app.get("/", function (req, res, next) {
     if (err) {
       console.log(err);
     } else {
-      client.query("SELECT roomid FROM rooms", function (err, result) {
+      client.query("SELECT roomid FROM rooms", function (error, results) {
+        if (error) {
+          throw error;
+        }
         res.render("index", {
-          datas: result.rows[0].name,
+          datas: results.rows,
           id: myLiffId,
         });
-        console.log(result);
+        // console.log(result);
       });
     }
   });
 });
+//datas: result.rows[0].name,
 
 // const { Pool } = require("pg");
 // const pool = new Pool({
