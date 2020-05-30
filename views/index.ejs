@@ -359,9 +359,10 @@
         <button id="getProfileButton">Get Profile</button>
         <p id="userIdProfileField"></p>
         <p>data</p>
-        <% datas.forEach(s =>{ %>
-        <p><%= datas[0].roomid %></p>
+        <% for(let i=0; i < datas.length; i++ ){ %>
+        <p><%= datas[i].roomid %></p>
         <% }); %>
+        <!-- datas.forEach(s =>{ -->
 
         <!-- LIFF ID ERROR -->
         <div id="liffIdErrorMessage" class="hidden">
