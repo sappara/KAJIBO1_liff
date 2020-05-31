@@ -72,7 +72,7 @@ app.get("/send-id", function (req, res) {
   res.json({ id: myLiffId });
 });
 app.get("/send-roomid", function (req, res) {
-  res.json({ roomid: roomid1 });
+  res.json({ roomid: "roomid1" });
 });
 
 // app.get("/send-roomid", function (req, res) {
