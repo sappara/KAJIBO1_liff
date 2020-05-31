@@ -19,9 +19,8 @@ app.get("/", function (req, res, next) {
       console.log(err);
     } else {
       client.query(
-        "SELECT roomid, pgp_sym_decrypt(userid, " +
-          process.env.DB_ENCRYPT_PASS +
-          ") FROM rooms",
+        "SELECT roomid, pgp_sym_decrypt(userid, $1) FROM rooms",
+        [process.env.DB_ENCRYPT_PASS],
         function (error, results) {
           if (error) {
             throw error;
