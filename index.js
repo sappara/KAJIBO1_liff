@@ -18,15 +18,6 @@ app.get("/", function (req, res, next) {
     if (err) {
       console.log(err);
     } else {
-      const profileid = "";
-      liff
-        .getProfile()
-        .then((profile) => {
-          profileid = profile.userId;
-        })
-        .catch((err) => {
-          console.log("error", err);
-        });
       client.query(
         "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
         [process.env.DB_ENCRYPT_PASS],
@@ -89,15 +80,6 @@ app.get("/send-id", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      const profileid = "";
-      liff
-        .getProfile()
-        .then((profile) => {
-          profileid = profile.userId;
-        })
-        .catch((err) => {
-          console.log("error", err);
-        });
       client.query(
         "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
         [process.env.DB_ENCRYPT_PASS],
@@ -105,12 +87,8 @@ app.get("/send-id", function (req, res) {
           if (error) {
             throw error;
           }
-          res.render("index", {
-            datas: results.rows,
-            id: myLiffId,
-          });
+          res.json({ id: myLiffId, datas: results.rows });
           // console.log(result);
-          //     res.json({ id: myLiffId });
         }
       );
     }
