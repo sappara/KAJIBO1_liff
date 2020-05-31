@@ -6,9 +6,9 @@ window.onload = function () {
 
   // DO NOT CHANGE THIS
   let myLiffId = "";
-  // let profileId = [];
-  // profileId = jsonResponse.datas;
-  let datas = "";
+  // // let profileId = [];
+  // // profileId = jsonResponse.datas;
+  // let datas = "";
 
   // if node is used, fetch the environment variable and pass it to the LIFF method
   // otherwise, pass defaultLiffId
@@ -32,17 +32,17 @@ window.onload = function () {
     initializeLiffOrDie(myLiffId);
   }
 
-  fetch("/send-roomid")
-    .then(function (reqResponse) {
-      return reqResponse.json();
-    })
-    .then(function (jsonResponse) {
-      datas = jsonResponse.datas;
-      document.getElementById("maintable").textContent = datas;
-    })
-    .catch(function (error) {
-      document.getElementById("errorDatas").textContent = "error Datas";
-    });
+  // fetch("/send-roomid")
+  //   .then(function (reqResponse) {
+  //     return reqResponse.json();
+  //   })
+  //   .then(function (jsonResponse) {
+  //     datas = jsonResponse.datas;
+  //     document.getElementById("maintable").textContent = datas;
+  //   })
+  //   .catch(function (error) {
+  //     document.getElementById("errorDatas").textContent = "error Datas";
+  //   });
 };
 
 /**
