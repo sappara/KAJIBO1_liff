@@ -6,35 +6,35 @@ const port = process.env.PORT || 5000;
 const myLiffId = process.env.MY_LIFF_ID;
 
 const { Pool } = require("pg");
-// app.get("/", function (req, res, next) {
-//   const pool = new Pool({
-//     database: process.env.ENV_DB,
-//     user: process.env.ENB_USER,
-//     password: process.env.ENV_PASSWORD,
-//     host: process.env.ENV_HOST,
-//     port: 5432,
-//   });
-//   pool.connect(function (err, client) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       client.query(
-//         "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
-//         [process.env.DB_ENCRYPT_PASS],
-//         function (error, results) {
-//           if (error) {
-//             throw error;
-//           }
-//           res.render("index", {
-//             datas: results.rows,
-//             id: myLiffId,
-//           });
-//           // console.log(result);
-//         }
-//       );
-//     }
-//   });
-// });
+app.get("/", function (req, res, next) {
+  const pool = new Pool({
+    database: process.env.ENV_DB,
+    user: process.env.ENB_USER,
+    password: process.env.ENV_PASSWORD,
+    host: process.env.ENV_HOST,
+    port: 5432,
+  });
+  pool.connect(function (err, client) {
+    if (err) {
+      console.log(err);
+    } else {
+      client.query(
+        "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
+        [process.env.DB_ENCRYPT_PASS],
+        function (error, results) {
+          if (error) {
+            throw error;
+          }
+          res.render("index", {
+            datas: results.rows,
+            id: myLiffId,
+          });
+          // console.log(result);
+        }
+      );
+    }
+  });
+});
 //datas: result.rows[0].name,
 // "SELECT roomid, pgp_sym_decrypt(userid, $1) as userid FROM rooms "
 // "SELECT roomid, userid FROM rooms WHERE pgp_sym_encrypt($1, $2) ",
@@ -69,31 +69,9 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/send-id", function (req, res) {
-  const pool = new Pool({
-    database: process.env.ENV_DB,
-    user: process.env.ENB_USER,
-    password: process.env.ENV_PASSWORD,
-    host: process.env.ENV_HOST,
-    port: 5432,
-  });
-  pool.connect(function (err, client) {
-    if (err) {
-      console.log(err);
-    } else {
-      client.query(
-        "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
-        [process.env.DB_ENCRYPT_PASS],
-        function (error, results) {
-          if (error) {
-            throw error;
-          }
-          res.send({ id: myLiffId, datas: [results.rows] });
-          // console.log(result);
-        }
-      );
-    }
-  });
+  res.json({ id: myLiffId });
 });
+
 // app.get("/", (req, res) => {
 //     //   res.send("Welcome to Confetti Cuisine!");
 //     res.render("index");

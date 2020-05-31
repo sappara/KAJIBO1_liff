@@ -149,11 +149,12 @@ function checkUserid() {
       console.log("error", err);
     });
   for (let i = 0; i < datas.length; i++) {
-    if ((name = datas[i].name))
+    if (name === datas[i].name) {
       document.getElementById("userIdProfileField2").textContent =
         datas[i].name;
-    document.getElementById("userIdProfileField3").textContent =
-      datas[i].roomid;
-    break;
+      document.getElementById("userIdProfileField3").textContent =
+        datas[i].roomid;
+      break;
+    }
   }
 }
