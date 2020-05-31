@@ -8,6 +8,7 @@ window.onload = function () {
   let myLiffId = "";
   // let profileId = [];
   // profileId = jsonResponse.datas;
+  let datas = [];
 
   // if node is used, fetch the environment variable and pass it to the LIFF method
   // otherwise, pass defaultLiffId
@@ -30,6 +31,18 @@ window.onload = function () {
     myLiffId = defaultLiffId;
     initializeLiffOrDie(myLiffId);
   }
+
+  fetch("/send-roomid")
+    .then(function (reqResponse) {
+      return reqResponse.json();
+    })
+    .then(function (jsonResponse) {
+      datas = jsonResponse.datas;
+      showDatas(datas);
+    })
+    .catch(function (error) {
+      document.getElementById("errorDatas").textContent = "error Datas";
+    });
 };
 
 /**
@@ -135,4 +148,15 @@ function getUserid() {
     .catch(function (error) {
       window.alert("Error getting profile: " + error);
     });
+}
+
+function showDatas() {
+  for (let i = 0; i < datas.length; i++) {
+    let p1 = document.createElement("p");
+    p1.textContent = datas[i].roomid;
+    let p2 = document.createElement("p");
+    p2.textContent = datas[i].name;
+    p1.appendChild(p2);
+  }
+  document.getElementById("maintable").appendChild(p1);
 }
