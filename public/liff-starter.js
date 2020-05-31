@@ -72,7 +72,6 @@ function initializeLiff(myLiffId) {
 function initializeApp() {
   registerButtonHandlers();
   getUserid();
-  checkUserid();
 }
 
 /**
@@ -136,25 +135,4 @@ function getUserid() {
     .catch(function (error) {
       window.alert("Error getting profile: " + error);
     });
-}
-
-function checkUserid() {
-  const name = "";
-  liff
-    .getProfile()
-    .then((profile) => {
-      name = profile.userId;
-    })
-    .catch((err) => {
-      console.log("error", err);
-    });
-  for (let i = 0; i < datas.length; i++) {
-    if (name === datas[i].name) {
-      document.getElementById("userIdProfileField2").textContent =
-        datas[i].name;
-      document.getElementById("userIdProfileField3").textContent =
-        datas[i].roomid;
-      break;
-    }
-  }
 }
