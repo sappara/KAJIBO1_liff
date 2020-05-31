@@ -87,7 +87,7 @@ app.get("/send-id", function (req, res) {
           if (error) {
             throw error;
           }
-          res.json({ id: myLiffId, datas: results.rows });
+          res.json({ id: myLiffId, datas: [results.rows] });
           // console.log(result);
         }
       );
