@@ -18,9 +18,18 @@ app.get("/", function (req, res, next) {
     if (err) {
       console.log(err);
     } else {
+      const profileid = "";
+      liff
+        .getProfile()
+        .then((profile) => {
+          profileid = profile.userId;
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
       client.query(
-        "SELECT roomid, pgp_sym_decrypt(userid, $1) as userid FROM rooms",
-        [process.env.DB_ENCRYPT_PASS],
+        "SELECT roomid, userid FROM rooms WHERE pgp_sym_encrypt($1, $2) ",
+        [profileid, process.env.DB_ENCRYPT_PASS],
         function (error, results) {
           if (error) {
             throw error;
@@ -36,6 +45,7 @@ app.get("/", function (req, res, next) {
   });
 });
 //datas: result.rows[0].name,
+// "SELECT roomid, pgp_sym_decrypt(userid, $1) as userid FROM rooms "
 
 // const { Pool } = require("pg");
 // const pool = new Pool({
