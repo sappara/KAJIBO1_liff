@@ -6,6 +6,7 @@ window.onload = function () {
 
   // DO NOT CHANGE THIS
   let myLiffId = "";
+  let profileId = [];
 
   // if node is used, fetch the environment variable and pass it to the LIFF method
   // otherwise, pass defaultLiffId
@@ -16,6 +17,7 @@ window.onload = function () {
       })
       .then(function (jsonResponse) {
         myLiffId = jsonResponse.id;
+        profileId = jsonResponse.datas;
         initializeLiffOrDie(myLiffId);
       })
       .catch(function (error) {
@@ -133,4 +135,24 @@ function getUserid() {
     .catch(function (error) {
       window.alert("Error getting profile: " + error);
     });
+}
+
+function checkUserid() {
+  const name = "";
+  liff
+    .getProfile()
+    .then((profile) => {
+      name = profile.userId;
+    })
+    .catch((err) => {
+      console.log("error", err);
+    });
+  for (let i = 0; i < datas.length; i++) {
+    if ((name = datas[i].name))
+      document.getElementById("userIdProfileField2").textContent =
+        datas[i].name;
+    document.getElementById("userIdProfileField3").textContent =
+      datas[i].roomid;
+    break;
+  }
 }

@@ -28,8 +28,8 @@ app.get("/", function (req, res, next) {
           console.log("error", err);
         });
       client.query(
-        "SELECT roomid, userid FROM rooms WHERE pgp_sym_encrypt($1, $2) ",
-        [profileid, process.env.DB_ENCRYPT_PASS],
+        "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
+        [process.env.DB_ENCRYPT_PASS],
         function (error, results) {
           if (error) {
             throw error;
@@ -46,6 +46,7 @@ app.get("/", function (req, res, next) {
 });
 //datas: result.rows[0].name,
 // "SELECT roomid, pgp_sym_decrypt(userid, $1) as userid FROM rooms "
+// "SELECT roomid, userid FROM rooms WHERE pgp_sym_encrypt($1, $2) ",
 
 // const { Pool } = require("pg");
 // const pool = new Pool({
@@ -77,7 +78,43 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/send-id", function (req, res) {
-  res.json({ id: myLiffId });
+  const pool = new Pool({
+    database: process.env.ENV_DB,
+    user: process.env.ENB_USER,
+    password: process.env.ENV_PASSWORD,
+    host: process.env.ENV_HOST,
+    port: 5432,
+  });
+  pool.connect(function (err, client) {
+    if (err) {
+      console.log(err);
+    } else {
+      const profileid = "";
+      liff
+        .getProfile()
+        .then((profile) => {
+          profileid = profile.userId;
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+      client.query(
+        "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
+        [process.env.DB_ENCRYPT_PASS],
+        function (error, results) {
+          if (error) {
+            throw error;
+          }
+          res.render("index", {
+            datas: results.rows,
+            id: myLiffId,
+          });
+          // console.log(result);
+          //     res.json({ id: myLiffId });
+        }
+      );
+    }
+  });
 });
 // app.get("/", (req, res) => {
 //     //   res.send("Welcome to Confetti Cuisine!");
