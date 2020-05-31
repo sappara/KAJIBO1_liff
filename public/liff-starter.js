@@ -6,7 +6,8 @@ window.onload = function () {
 
   // DO NOT CHANGE THIS
   let myLiffId = "";
-  let profileId = [];
+  // let profileId = [];
+  // profileId = jsonResponse.datas;
 
   // if node is used, fetch the environment variable and pass it to the LIFF method
   // otherwise, pass defaultLiffId
@@ -17,7 +18,6 @@ window.onload = function () {
       })
       .then(function (jsonResponse) {
         myLiffId = jsonResponse.id;
-        profileId = jsonResponse.datas;
         initializeLiffOrDie(myLiffId);
       })
       .catch(function (error) {
