@@ -72,6 +72,7 @@ function initializeLiff(myLiffId) {
 function initializeApp() {
   registerButtonHandlers();
   getUserid();
+  checkUserid();
 }
 
 /**
