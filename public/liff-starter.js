@@ -151,12 +151,13 @@ function getUserid() {
 }
 
 function showDatas() {
+  let table = document.createElement("div");
   for (let i = 0; i < datas.length; i++) {
     let p1 = document.createElement("p");
     p1.textContent = datas[i].roomid;
     let p2 = document.createElement("p");
     p2.textContent = datas[i].name;
-    p1.appendChild(p2);
+    table.appendChild(p1 + p2);
   }
-  document.getElementById("maintable").appendChild(p1);
+  document.getElementById("maintable").appendChild(table);
 }
