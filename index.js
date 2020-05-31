@@ -71,32 +71,35 @@ app.use(express.static("public"));
 app.get("/send-id", function (req, res) {
   res.json({ id: myLiffId });
 });
-
 app.get("/send-roomid", function (req, res) {
-  const pool = new Pool({
-    database: process.env.ENV_DB,
-    user: process.env.ENB_USER,
-    password: process.env.ENV_PASSWORD,
-    host: process.env.ENV_HOST,
-    port: 5432,
-  });
-  pool.connect(function (err, client) {
-    if (err) {
-      console.log(err);
-    } else {
-      client.query(
-        "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
-        [process.env.DB_ENCRYPT_PASS],
-        function (error, results) {
-          if (error) {
-            throw error;
-          }
-          res.json({ datas: results.rows });
-        }
-      );
-    }
-  });
+  res.json({ roomid: roomid1 });
 });
+
+// app.get("/send-roomid", function (req, res) {
+//   const pool = new Pool({
+//     database: process.env.ENV_DB,
+//     user: process.env.ENB_USER,
+//     password: process.env.ENV_PASSWORD,
+//     host: process.env.ENV_HOST,
+//     port: 5432,
+//   });
+//   pool.connect(function (err, client) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       client.query(
+//         "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
+//         [process.env.DB_ENCRYPT_PASS],
+//         function (error, results) {
+//           if (error) {
+//             throw error;
+//           }
+//           res.json({ datas: results.rows });
+//         }
+//       );
+//     }
+//   });
+// });
 
 // app.get("/", (req, res) => {
 //     //   res.send("Welcome to Confetti Cuisine!");

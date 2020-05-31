@@ -8,7 +8,7 @@ window.onload = function () {
   let myLiffId = "";
   // let profileId = [];
   // profileId = jsonResponse.datas;
-  let datas = [];
+  let datas = "";
 
   // if node is used, fetch the environment variable and pass it to the LIFF method
   // otherwise, pass defaultLiffId
@@ -38,7 +38,7 @@ window.onload = function () {
     })
     .then(function (jsonResponse) {
       datas = jsonResponse.datas;
-      showDatas(datas);
+      document.getElementById("maintable").textContent = datas;
     })
     .catch(function (error) {
       document.getElementById("errorDatas").textContent = "error Datas";
@@ -150,14 +150,14 @@ function getUserid() {
     });
 }
 
-function showDatas() {
-  let table = document.createElement("div");
-  for (let i = 0; i < datas.length; i++) {
-    let p1 = document.createElement("p");
-    p1.textContent = datas[i].roomid;
-    let p2 = document.createElement("p");
-    p2.textContent = datas[i].name;
-    table.appendChild(p1 + p2);
-  }
-  document.getElementById("maintable").appendChild(table);
-}
+// function showDatas() {
+//   let table = document.createElement("div");
+//   for (let i = 0; i < datas.length; i++) {
+//     let p1 = document.createElement("p");
+//     p1.textContent = datas[i].roomid;
+//     let p2 = document.createElement("p");
+//     p2.textContent = datas[i].name;
+//     table.appendChild(p1 + p2);
+//   }
+//   document.getElementById("maintable").appendChild(table);
+// }
