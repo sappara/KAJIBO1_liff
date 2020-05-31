@@ -18,16 +18,20 @@ app.get("/", function (req, res, next) {
     if (err) {
       console.log(err);
     } else {
-      client.query("SELECT roomid FROM rooms", function (error, results) {
-        if (error) {
-          throw error;
+      let pass = process.env.DB_ENCRYPT_PASS;
+      client.query(
+        `SELECT roomid, pgp_sym_decrypt(userid, ${pass}) FROM rooms`,
+        function (error, results) {
+          if (error) {
+            throw error;
+          }
+          res.render("index", {
+            datas: results.rows,
+            id: myLiffId,
+          });
+          // console.log(result);
         }
-        res.render("index", {
-          datas: results.rows,
-          id: myLiffId,
-        });
-        // console.log(result);
-      });
+      );
     }
   });
 });
