@@ -61,13 +61,6 @@ const { Pool } = require("pg");
 //   }
 //   client.end();
 // });
-
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-app.use(express.static("public"));
-
 app.get("/", function (req, res, next) {
   //   let roomid = req.params.roomid;
   const pool = new Pool({
@@ -100,6 +93,12 @@ app.get("/", function (req, res, next) {
     }
   });
 });
+
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use(express.static("public"));
 
 app.get("/send-id", function (req, res) {
   res.json({ id: myLiffId });
