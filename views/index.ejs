@@ -361,7 +361,11 @@
         <p id="userIdProfileField2"></p>
         <p id="userIdProfileField3"></p>
         <p>data</p>
-        <p><%= datas[0].step4 %></p>
+        <% if(datas[0].step4 == null){ %>
+        <p>洗濯ネットは「引き出しや戸棚の中」を探してください。</p>
+        <% } else { %>
+        <p>洗濯ネットは「<%= datas[0].step4 %>」を探してください。</p>
+        <% } %>
         <!-- datas.forEach(s =>{ });-->
         <!-- for(let i=0; i < datas.length; i++ ){ -->
         <!-- datas[i].roomid -->
