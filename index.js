@@ -6,35 +6,35 @@ const port = process.env.PORT || 5000;
 const myLiffId = process.env.MY_LIFF_ID;
 
 const { Pool } = require("pg");
-app.get("/", function (req, res, next) {
-  const pool = new Pool({
-    database: process.env.ENV_DB,
-    user: process.env.ENB_USER,
-    password: process.env.ENV_PASSWORD,
-    host: process.env.ENV_HOST,
-    port: 5432,
-  });
-  pool.connect(function (err, client) {
-    if (err) {
-      console.log(err);
-    } else {
-      client.query(
-        "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
-        [process.env.DB_ENCRYPT_PASS],
-        function (error, results) {
-          if (error) {
-            throw error;
-          }
-          res.render("index", {
-            datas: results.rows,
-            id: myLiffId,
-          });
-          // console.log(result);
-        }
-      );
-    }
-  });
-});
+// app.get("/", function (req, res, next) {
+//   const pool = new Pool({
+//     database: process.env.ENV_DB,
+//     user: process.env.ENB_USER,
+//     password: process.env.ENV_PASSWORD,
+//     host: process.env.ENV_HOST,
+//     port: 5432,
+//   });
+//   pool.connect(function (err, client) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       client.query(
+//         "SELECT roomid, pgp_sym_decrypt(userid, $1) as name FROM rooms ",
+//         [process.env.DB_ENCRYPT_PASS],
+//         function (error, results) {
+//           if (error) {
+//             throw error;
+//           }
+//           res.render("index", {
+//             datas: results.rows,
+//             id: myLiffId,
+//           });
+//           // console.log(result);
+//         }
+//       );
+//     }
+//   });
+// });
 //datas: result.rows[0].name,
 // "SELECT roomid, pgp_sym_decrypt(userid, $1) as userid FROM rooms "
 // "SELECT roomid, userid FROM rooms WHERE pgp_sym_encrypt($1, $2) ",
@@ -67,6 +67,39 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(express.static("public"));
+
+app.get("/", function (req, res, next) {
+  //   let roomid = req.params.roomid;
+  const pool = new Pool({
+    database: process.env.ENV_DB,
+    user: process.env.ENB_USER,
+    password: process.env.ENV_PASSWORD,
+    host: process.env.ENV_HOST,
+    port: 5432,
+  });
+  pool.connect(function (err, client) {
+    if (err) {
+      console.log(err);
+    } else {
+      client.query(
+        "SELECT * FROM step4s WHERE roomid = 5ecdb3259323a",
+        function (error, results) {
+          if (error) {
+            throw error;
+          }
+          res.render("index", {
+            datas: results.rows,
+            id: myLiffId,
+          });
+          // console.log(result);
+          //   "/:roomid"
+          // "SELECT * FROM step4s WHERE roomid = ?",
+          // [req.params.roomid],
+        }
+      );
+    }
+  });
+});
 
 app.get("/send-id", function (req, res) {
   res.json({ id: myLiffId });
