@@ -84,8 +84,8 @@ function initializeLiff(myLiffId) {
  */
 function initializeApp() {
   registerButtonHandlers();
-  getUserid();
 }
+// getUserid();
 
 /**
  * Register event handlers for the buttons displayed in the app
@@ -113,21 +113,21 @@ function registerButtonHandlers() {
           });
       }
     });
-  // get profile call
-  document
-    .getElementById("getProfileButton")
-    .addEventListener("click", function () {
-      liff
-        .getProfile()
-        .then(function (profile) {
-          document.getElementById("userIdProfileField").textContent =
-            profile.userId;
-        })
-        .catch(function (error) {
-          window.alert("Error getting profile: " + error);
-        });
-    });
 }
+// // get profile call
+// document
+//   .getElementById("getProfileButton")
+//   .addEventListener("click", function () {
+//     liff
+//       .getProfile()
+//       .then(function (profile) {
+//         document.getElementById("userIdProfileField").textContent =
+//           profile.userId;
+//       })
+//       .catch(function (error) {
+//         window.alert("Error getting profile: " + error);
+//       });
+//   });
 
 /**
  * Alert the user if LIFF is opened in an external browser and unavailable buttons are tapped
