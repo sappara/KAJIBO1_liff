@@ -75,7 +75,7 @@ app.get("/", function (req, res, next) {
       console.log(err);
     } else {
       client.query(
-        "SELECT * FROM step5s WHERE roomid = $1",
+        "SELECT * FROM step4s WHERE roomid = $1",
         ["5ecdb3259323a"],
         function (error, results) {
           if (error) {
