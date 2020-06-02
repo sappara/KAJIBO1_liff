@@ -361,18 +361,20 @@
         <!-- <p id="userIdProfileField2"></p> -->
         <!-- <p id="userIdProfileField3"></p> -->
         <p>data4</p>
-        <% if(datas.step4s.length == 0){ %>
-        <p>洗濯ネットは「引き出しや戸棚の中」を探してください。</p>
-        <% }else{ %>
+        <% if( datas.hasOwnProperty('step4') ){ %>
         <p>洗濯ネットは「<%= datas[0].step4 %>」を探してください。</p>
+        <% }else{ %>
+        <p>洗濯ネットは「引き出しや戸棚の中」を探してください。</p>
         <% } %>
 
         <p>data5</p>
-        <% if(datas[0]['step5'].length == 0){ %>
-        <p>洗剤は「引き出しや戸棚の中」を探してください</p>
-        <% } else { %>
+        <% if( datas.hasOwnProperty('step5') ){ %>
         <p>洗剤は「<%= datas[0].step5 %>」を探してください</p>
+        <% } else { %>
+        <p>洗剤は「引き出しや戸棚の中」を探してください</p>
         <% } %>
+        <!-- if(datas.step4s.length == 0){ -->
+        <!-- if(datas[0]['step5'].length == 0){ -->
         <!-- if("step5s" in datas){ -->
         <!-- if("step5" in datas){ -->
         <!-- if(datas.length == 0){} else {} -->
