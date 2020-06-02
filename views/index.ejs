@@ -361,7 +361,7 @@
         <!-- <p id="userIdProfileField2"></p> -->
         <!-- <p id="userIdProfileField3"></p> -->
 
-        <p><%= Object.getOwnPropertyNames(datas) %></p>
+        <p><%= datas.hasOwnProperty('step4') %></p>
 
         <p>data4</p>
         <!-- < if (datas[0].step4) { %>
@@ -382,7 +382,7 @@
           <li><= value %></li>白紙
           <});%>
         </ul> -->
-        <!-- Object.getOwnPropertyNames()  -->
+        <!-- Object.getOwnPropertyNames()これはlengthのみ出た  -->
         <!-- Object.keys(datas)白紙 -->
         <!-- JSON.stringify(datas)これは[]と出る -->
         <!-- if( datas.hasOwnProperty('step4') == true){ -->
