@@ -361,7 +361,7 @@
         <!-- <p id="userIdProfileField2"></p> -->
         <!-- <p id="userIdProfileField3"></p> -->
 
-        <p><%= JSON.stringify(datas) %></p>
+        <p><%= JSON.stringify(datas[0]) %></p>
 
         <p>data4</p>
         <!-- < if (datas[0].step4) { %>
@@ -379,11 +379,12 @@
 
         <!-- <ul>
           < datas.forEach(function(value){%>
-          <li><= value %></li>
+          <li><= value %></li>白紙
           <});%>
         </ul> -->
-        <!-- Object.keys(datas) -->
-        <!-- JSON.stringify(datas) -->
+        <!-- Object.getOwnPropertyNames()  -->
+        <!-- Object.keys(datas)白紙 -->
+        <!-- JSON.stringify(datas)これは[]と出る -->
         <!-- if( datas.hasOwnProperty('step4') == true){ -->
         <!-- if( datas.hasOwnProperty('step5s') == true ){ -->
         <!-- if(datas.step4s.length == 0){ -->
