@@ -361,14 +361,14 @@
         <!-- <p id="userIdProfileField2"></p> -->
         <!-- <p id="userIdProfileField3"></p> -->
         <p>data4</p>
-        <% if( datas.hasOwnProperty('step4') == true){ %>
+        <% if( datas[0].hasOwnProperty('step4') == true){ %>
         <p>洗濯ネットは「<%= datas[0].step4 %>」を探してください。</p>
         <% }else{ %>
         <p>洗濯ネットは「引き出しや戸棚の中」を探してください。</p>
         <% } %>
 
         <p>data5</p>
-        <% if( datas.hasOwnProperty('step5') == true ){ %>
+        <% if( datas[0].hasOwnProperty('step5') == true ){ %>
         <p>洗剤は「<%= datas[0].step5 %>」を探してください</p>
         <% } else { %>
         <p>洗剤は「引き出しや戸棚の中」を探してください</p>
