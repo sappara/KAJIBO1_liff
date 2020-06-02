@@ -361,7 +361,9 @@
         <!-- <p id="userIdProfileField2"></p> -->
         <!-- <p id="userIdProfileField3"></p> -->
 
-        <p><%= datas.hasOwnProperty('step4') %></p>
+        <% for (var item of ary){ %>
+        <p><%= item %></p>
+        <% } %>
 
         <p>data4</p>
         <!-- < if (datas[0].step4) { %>
@@ -385,6 +387,8 @@
         <!-- Object.getOwnPropertyNames()これはlengthのみ出た  -->
         <!-- Object.keys(datas)白紙 -->
         <!-- JSON.stringify(datas)これは[]と出る -->
+        <!-- jsonData.datasこれはエラーだった -->
+        <!-- datas.hasOwnProperty('step4')これもfalseと出る -->
         <!-- if( datas.hasOwnProperty('step4') == true){ -->
         <!-- if( datas.hasOwnProperty('step5s') == true ){ -->
         <!-- if(datas.step4s.length == 0){ -->
