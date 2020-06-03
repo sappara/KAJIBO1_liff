@@ -61,7 +61,7 @@ const { Pool } = require("pg");
 //   }
 //   client.end();
 // });
-app.get("/", function (req, res, next) {
+app.get("/4/:roomid", function (req, res, next) {
   //   let roomid = req.params.roomid;
   const pool = new Pool({
     database: process.env.ENV_DB,
@@ -76,7 +76,7 @@ app.get("/", function (req, res, next) {
     } else {
       client.query(
         "SELECT step4 FROM step4s WHERE roomid = ?",
-        ["5ecdb3259323a"],
+        [req.params.roomid],
         function (error, results) {
           if (error) {
             throw error;
@@ -89,6 +89,7 @@ app.get("/", function (req, res, next) {
           //   "/:roomid"
           // "SELECT * FROM step4s WHERE roomid = ?",
           // [req.params.roomid],
+          //   "5ecdb3259323a"
           //   両テーブルとも登録あればうまくいく「"SELECT a.step4, b.step5 FROM step4s a, step5s b WHERE a.roomid = $1 AND b.roomid = $1"」
           //   両テーブルとも登録あればうまくいく「"SELECT a.step4, b.step5, c.step6 FROM step4s a, step5s b, step6s c WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) AND EXISTS(SELECT * FROM step5s WHERE b.roomid = $1) AND EXISTS(SELECT * FROM step6s WHERE c.roomid = $1)"」
           //   unionだとstep4のところにしか出力されない「 "SELECT step4 FROM step4s a WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) union SELECT step5 FROM step5s b WHERE EXISTS(SELECT * FROM step5s WHERE b.roomid = $1)"」
@@ -98,26 +99,29 @@ app.get("/", function (req, res, next) {
       );
     }
   });
-  const pool2 = new Pool({
+});
+app.get("/5/:roomid", function (req, res, next) {
+  //   let roomid = req.params.roomid;
+  const pool = new Pool({
     database: process.env.ENV_DB,
     user: process.env.ENB_USER,
     password: process.env.ENV_PASSWORD,
     host: process.env.ENV_HOST,
     port: 5432,
   });
-  pool2.connect(function (err, client) {
+  pool.connect(function (err, client) {
     if (err) {
       console.log(err);
     } else {
       client.query(
         "SELECT step5 FROM step5s WHERE roomid = ?",
-        ["5ecdb3259323a"],
+        [req.params.roomid],
         function (error, results) {
           if (error) {
             throw error;
           }
           res.render("index2", {
-            datas2: results.rows,
+            datas: results.rows,
             id: myLiffId,
           });
         }
