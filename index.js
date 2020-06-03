@@ -61,7 +61,7 @@ const { Pool } = require("pg");
 //   }
 //   client.end();
 // });
-app.get("/:roomid", function (req, res, next) {
+app.get("/step4/:roomid", function (req, res, next) {
   //   let roomid = req.params.roomid;
   const pool = new Pool({
     database: process.env.ENV_DB,
