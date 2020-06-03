@@ -7,12 +7,6 @@ const myLiffId = process.env.MY_LIFF_ID;
 
 const { Pool } = require("pg");
 
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-app.use(express.static("public"));
-
 // app.get("/", function (req, res, next) {
 //   const pool = new Pool({
 //     database: process.env.ENV_DB,
@@ -136,6 +130,12 @@ app.get("/step4/:roomid", function (req, res, next) {
 //     }
 //   });
 // });
+
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use(express.static("public"));
 
 app.get("/send-id", function (req, res) {
   res.json({ id: myLiffId });
