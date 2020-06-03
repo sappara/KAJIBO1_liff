@@ -62,7 +62,8 @@ const { Pool } = require("pg");
 //   }
 //   client.end();
 // });
-app.get("/step4/:roomid", function (req, res, next) {
+app.get("/", function (req, res, next) {
+  // /step4/:roomid
   //   let roomid = req.params.roomid;
   const pool = new Pool({
     database: process.env.ENV_DB,
@@ -77,7 +78,7 @@ app.get("/step4/:roomid", function (req, res, next) {
     } else {
       client.query(
         "SELECT step4 FROM step4s WHERE roomid = ?",
-        [req.params.roomid],
+        ["5ecdb3259323a"],
         function (error, results) {
           if (error) {
             throw error;
@@ -101,35 +102,6 @@ app.get("/step4/:roomid", function (req, res, next) {
     }
   });
 });
-// app.get("/5/:roomid", function (req, res, next) {
-//   //   let roomid = req.params.roomid;
-//   const pool = new Pool({
-//     database: process.env.ENV_DB,
-//     user: process.env.ENB_USER,
-//     password: process.env.ENV_PASSWORD,
-//     host: process.env.ENV_HOST,
-//     port: 5432,
-//   });
-//   pool.connect(function (err, client) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       client.query(
-//         "SELECT step5 FROM step5s WHERE roomid = ?",
-//         [req.params.roomid],
-//         function (error, results) {
-//           if (error) {
-//             throw error;
-//           }
-//           res.render("index2", {
-//             datas: results.rows,
-//             id: myLiffId,
-//           });
-//         }
-//       );
-//     }
-//   });
-// });
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
