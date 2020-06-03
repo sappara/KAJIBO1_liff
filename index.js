@@ -75,7 +75,7 @@ app.get("/", function (req, res, next) {
       console.log(err);
     } else {
       client.query(
-        "SELECT a.step4, b.step5 FROM step4s a, step5s b WHERE a.roomid = $1 AND b.roomid = $1",
+        "SELECT step4 FROM step4s WHERE EXISTS(SELECT * FROM step4s WHERE roomid = $1) union SELECT step5 FROM step5s WHERE EXISTS(SELECT * FROM step5s WHERE roomid = $1)",
         ["5ecdb3259323a"],
         function (error, results) {
           if (error) {
@@ -89,6 +89,7 @@ app.get("/", function (req, res, next) {
           //   "/:roomid"
           // "SELECT * FROM step4s WHERE roomid = ?",
           // [req.params.roomid],
+          //   両テーブルとも登録あればうまくいく「"SELECT a.step4, b.step5 FROM step4s a, step5s b WHERE a.roomid = $1 AND b.roomid = $1"」
         }
       );
     }
