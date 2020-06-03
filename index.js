@@ -98,7 +98,14 @@ app.get("/", function (req, res, next) {
       );
     }
   });
-  pool.connect(function (err, client) {
+  const pool2 = new Pool({
+    database: process.env.ENV_DB,
+    user: process.env.ENB_USER,
+    password: process.env.ENV_PASSWORD,
+    host: process.env.ENV_HOST,
+    port: 5432,
+  });
+  pool2.connect(function (err, client) {
     if (err) {
       console.log(err);
     } else {
