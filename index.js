@@ -75,7 +75,7 @@ app.get("/", function (req, res, next) {
       console.log(err);
     } else {
       client.query(
-        "SELECT step4 FROM step4s a WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1), SELECT step5 FROM step5s b WHERE EXISTS(SELECT * FROM step5s WHERE b.roomid = $1)",
+        "SELECT step4 FROM step4s a WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) union SELECT step5 FROM step5s b WHERE EXISTS(SELECT * FROM step5s WHERE b.roomid = $1)",
         ["5ecdb3259323a"],
         function (error, results) {
           if (error) {
