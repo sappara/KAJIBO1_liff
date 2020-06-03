@@ -90,6 +90,7 @@ app.get("/", function (req, res, next) {
           // "SELECT * FROM step4s WHERE roomid = ?",
           // [req.params.roomid],
           //   両テーブルとも登録あればうまくいく「"SELECT a.step4, b.step5 FROM step4s a, step5s b WHERE a.roomid = $1 AND b.roomid = $1"」
+          //   両テーブルとも登録あればうまくいく「"SELECT a.step4, b.step5, c.step6 FROM step4s a, step5s b, step6s c WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) AND EXISTS(SELECT * FROM step5s WHERE b.roomid = $1) AND EXISTS(SELECT * FROM step6s WHERE c.roomid = $1)"」
         }
       );
     }
