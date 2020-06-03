@@ -96,6 +96,12 @@ app.get("/", function (req, res, next) {
           //   and繋ぎもエラー「"SELECT step4 FROM step4s a WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) AND SELECT step5 FROM step5s b WHERE EXISTS(SELECT * FROM step5s WHERE b.roomid = $1)"」
         }
       );
+    }
+  });
+  pool.connect(function (err, client) {
+    if (err) {
+      console.log(err);
+    } else {
       client.query(
         "SELECT step5 FROM step5s WHERE roomid = $2",
         ["5ecdb3259323a"],
@@ -104,7 +110,7 @@ app.get("/", function (req, res, next) {
             throw error;
           }
           res.render("index2", {
-            datas: results.rows,
+            datas2: results.rows,
             id: myLiffId,
           });
         }
