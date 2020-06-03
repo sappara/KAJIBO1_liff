@@ -6,6 +6,13 @@ const port = process.env.PORT || 5000;
 const myLiffId = process.env.MY_LIFF_ID;
 
 const { Pool } = require("pg");
+
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use(express.static("public"));
+
 // app.get("/", function (req, res, next) {
 //   const pool = new Pool({
 //     database: process.env.ENV_DB,
@@ -100,41 +107,35 @@ app.get("/step4/:roomid", function (req, res, next) {
     }
   });
 });
-app.get("/5/:roomid", function (req, res, next) {
-  //   let roomid = req.params.roomid;
-  const pool = new Pool({
-    database: process.env.ENV_DB,
-    user: process.env.ENB_USER,
-    password: process.env.ENV_PASSWORD,
-    host: process.env.ENV_HOST,
-    port: 5432,
-  });
-  pool.connect(function (err, client) {
-    if (err) {
-      console.log(err);
-    } else {
-      client.query(
-        "SELECT step5 FROM step5s WHERE roomid = ?",
-        [req.params.roomid],
-        function (error, results) {
-          if (error) {
-            throw error;
-          }
-          res.render("index2", {
-            datas: results.rows,
-            id: myLiffId,
-          });
-        }
-      );
-    }
-  });
-});
-
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-app.use(express.static("public"));
+// app.get("/5/:roomid", function (req, res, next) {
+//   //   let roomid = req.params.roomid;
+//   const pool = new Pool({
+//     database: process.env.ENV_DB,
+//     user: process.env.ENB_USER,
+//     password: process.env.ENV_PASSWORD,
+//     host: process.env.ENV_HOST,
+//     port: 5432,
+//   });
+//   pool.connect(function (err, client) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       client.query(
+//         "SELECT step5 FROM step5s WHERE roomid = ?",
+//         [req.params.roomid],
+//         function (error, results) {
+//           if (error) {
+//             throw error;
+//           }
+//           res.render("index2", {
+//             datas: results.rows,
+//             id: myLiffId,
+//           });
+//         }
+//       );
+//     }
+//   });
+// });
 
 app.get("/send-id", function (req, res) {
   res.json({ id: myLiffId });
