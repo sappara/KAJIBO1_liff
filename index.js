@@ -75,7 +75,7 @@ app.get("/", function (req, res, next) {
       console.log(err);
     } else {
       client.query(
-        "SELECT step4 FROM step4s a WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) union SELECT step5 FROM step5s b WHERE EXISTS(SELECT * FROM step5s WHERE b.roomid = $1)",
+        "SELECT step4 FROM step4s a WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) AND SELECT step5 FROM step5s b WHERE EXISTS(SELECT * FROM step5s WHERE b.roomid = $1)",
         ["5ecdb3259323a"],
         function (error, results) {
           if (error) {
@@ -91,7 +91,8 @@ app.get("/", function (req, res, next) {
           // [req.params.roomid],
           //   両テーブルとも登録あればうまくいく「"SELECT a.step4, b.step5 FROM step4s a, step5s b WHERE a.roomid = $1 AND b.roomid = $1"」
           //   両テーブルとも登録あればうまくいく「"SELECT a.step4, b.step5, c.step6 FROM step4s a, step5s b, step6s c WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) AND EXISTS(SELECT * FROM step5s WHERE b.roomid = $1) AND EXISTS(SELECT * FROM step6s WHERE c.roomid = $1)"」
-          //   unionだとstep4のところにしか出力されない
+          //   unionだとstep4のところにしか出力されない「 "SELECT step4 FROM step4s a WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) union SELECT step5 FROM step5s b WHERE EXISTS(SELECT * FROM step5s WHERE b.roomid = $1)"」
+          //   カンマ区切りはエラー「 "SELECT step4 FROM step4s a WHERE EXISTS(SELECT * FROM step4s WHERE a.roomid = $1) , SELECT step5 FROM step5s b WHERE EXISTS(SELECT * FROM step5s WHERE b.roomid = $1)"」
         }
       );
     }
